@@ -68,6 +68,7 @@ list_stream_usage()
 
 	echo "Streams: $total"
 	echo " Unused: $unused"
+	echo "Stream Library: `du -B1000000000 $VPBASE/../streams | cut -f1` GB"
 }
 
 playout_start()
