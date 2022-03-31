@@ -212,11 +212,6 @@ if [ "$ENCODER" == "" ]; then
 	#echo "Test case is missing an ENCODER definition, will not attempt to configure or control an encoder"
 fi
 
-if [ "$BINARY" == "" ]; then
-	echo "Test case missing a BINARY definition"
-	exit 1
-fi
-
 if [ "$CASENAME" == "" ]; then
 	echo "test case missing CASENAME definition"
 	exit 1
