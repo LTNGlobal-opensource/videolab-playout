@@ -22,6 +22,7 @@ usage()
   echo "   --stop-all                     Stop all playout streams"
   echo "   --stop                         Stop a specific port"
   echo "   --status                       Show all playout streams"
+  echo "   --stream-usage                 Check which streams are used (or not)"
   echo "   --url-output udp://ip:port?ifname=<nic>"
   echo "                                  For a MPEG-TS playout stream, send UDP output to this address."
   echo "   --nic-output net1              PCAP playout, modify the pcap to match this NICs src ip and playout."
@@ -47,6 +48,27 @@ if [ $# -eq 0 ]; then
   usage
   exit 1
 fi
+
+list_stream_usage()
+{
+	unused=0
+	total=0
+	echo "Count Filename"
+	echo "---------------------------------------------------------------------"
+
+	for FILE in `ls $VPBASE/streams | grep -v readme.txt | grep -v .gitignore | grep -v aux$`
+	do
+		REFS=`grep $FILE $VPBASE/scripts/*.cfg $VPBASE/scripts/*.sh | wc -l`
+		if [ $REFS -eq 0 ]; then
+			unused=`expr $unused + 1`
+		fi
+		printf "%5d $FILE\n" $REFS
+		total=`expr $total + 1`
+	done
+
+	echo "Streams: $total"
+	echo " Unused: $unused"
+}
 
 playout_start()
 {
@@ -150,6 +172,11 @@ while (($#)); do
         --nic-output)
                 shift
                 NIC_DST=$1
+                ;;
+        --stream-usage)
+		list_stream_usage
+                shift
+		exit 0
                 ;;
         *)
 		usage
