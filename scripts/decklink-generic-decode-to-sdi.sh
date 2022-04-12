@@ -32,7 +32,7 @@ do
 		AUDIO_LEVEL_DOWN="-filter:a \"volume=-5dB\""
 		;;
         --enableallaudio)
-		export ENABLE_ALL_AUDIO=1
+		export LTN_ENABLE_AUDIO_ALL=1
 		;;
         --program-number)
                 shift
