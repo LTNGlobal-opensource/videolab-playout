@@ -7,6 +7,7 @@ OUTPUT_PORT=""
 VIDEO_FILTERS=""
 AUDIO_LEVEL_DOWN=""
 PROGRAM_NUMBER=""
+DOWNMIX="-ac 2"
 
 USAGETXT=$(cat <<-END
   Usage: $0\n
@@ -17,6 +18,7 @@ USAGETXT=$(cat <<-END
      --burnwriter             -- Enable burnwriter [def: disabled]\n
      --time                   -- Enable timestamp in frame [def: disabled]\n
      --enableallaudio         -- Enable decoding of all audio channels\n
+     --disabledownmix         -- By default we downmix 5.1. Disbale this feature\n
 END
 )
 
@@ -30,6 +32,9 @@ do
         case $1 in
         --audioleveldown5)
 		AUDIO_LEVEL_DOWN="-filter:a \"volume=-5dB\""
+		;;
+        --disabledownmix)
+		DOWNMIX=""
 		;;
         --enableallaudio)
 		export LTN_ENABLE_AUDIO_ALL=1
@@ -115,6 +120,6 @@ while [ 1 ]; do
 	decoder-0.36-dev -y $PROGRAM_NUMBER -i $FILENAME $MAPPING -ar 48000 \
 		$VIDEO_FILTERS \
 		$AUDIO_LEVEL_DOWN \
-		-acodec pcm_s16le -ac 2 -vcodec v210 -cea708_line 11 -use_3glevel_a on -f decklink "$DECKLINK_OUTPUT"
+		-acodec pcm_s16le $DOWNMIX -vcodec v210 -cea708_line 11 -use_3glevel_a on -f decklink "$DECKLINK_OUTPUT"
 	#sleep 0.1
 done
