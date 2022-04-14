@@ -121,5 +121,5 @@ while [ 1 ]; do
 		$VIDEO_FILTERS \
 		$AUDIO_LEVEL_DOWN \
 		-acodec pcm_s16le $DOWNMIX -vcodec v210 -cea708_line 11 -use_3glevel_a on -f decklink "$DECKLINK_OUTPUT"
-	#sleep 0.1
+	sleep 0.1
 done
