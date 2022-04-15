@@ -8,6 +8,7 @@ VIDEO_FILTERS=""
 AUDIO_LEVEL_DOWN=""
 PROGRAM_NUMBER=""
 DOWNMIX="-ac 2"
+LOOPDELAY="0.1"
 
 USAGETXT=$(cat <<-END
   Usage: $0\n
@@ -19,6 +20,7 @@ USAGETXT=$(cat <<-END
      --time                   -- Enable timestamp in frame [def: disabled]\n
      --enableallaudio         -- Enable decoding of all audio channels\n
      --disabledownmix         -- By default we downmix 5.1. Disbale this feature\n
+     --loopdelay     0.1      -- Number of seconds to wait after playing media, before repeating.
 END
 )
 
@@ -30,6 +32,10 @@ fi
 while (($#))
 do
         case $1 in
+        --loopdelay)
+		shift
+		LOOPDELAY=$1
+		;;
         --audioleveldown5)
 		AUDIO_LEVEL_DOWN="-filter:a \"volume=-5dB\""
 		;;
@@ -121,5 +127,5 @@ while [ 1 ]; do
 		$VIDEO_FILTERS \
 		$AUDIO_LEVEL_DOWN \
 		-acodec pcm_s16le $DOWNMIX -vcodec v210 -cea708_line 11 -use_3glevel_a on -f decklink "$DECKLINK_OUTPUT"
-	sleep 0.1
+	sleep $LOOPDELAY
 done
