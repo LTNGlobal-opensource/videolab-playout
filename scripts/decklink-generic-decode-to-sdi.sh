@@ -19,7 +19,7 @@ USAGETXT=$(cat <<-END
      --burnwriter             -- Enable burnwriter [def: disabled]\n
      --time                   -- Enable timestamp in frame [def: disabled]\n
      --enableallaudio         -- Enable decoding of all audio channels\n
-     --disabledownmix         -- By default we downmix 5.1. Disbale this feature\n
+     --disabledownmix         -- By default we downmix 5.1. This flag disables downmixing.\n
      --loopdelay     0.1      -- Number of seconds to wait after playing media, before repeating.
 END
 )
