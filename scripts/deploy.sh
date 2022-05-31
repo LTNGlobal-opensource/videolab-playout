@@ -31,6 +31,7 @@ usage()
   echo "    ./deploy.sh --port 1 --cfg-file testcase-320.cfg"
   echo "    ./deploy.sh --port 1 --cfg-file testcase-034.cfg"
   echo "    ./deploy.sh --port 1 --cfg-file testcase-900.cfg --nic-output eno2"
+  echo "    ./deploy.sh --port 9 --cfg-file testcase-601.cfg --url-output srt://vtflex.duckdns.org:9650"
   echo "    ./deploy.sh --port 1 --stop"
   echo
 }
@@ -40,7 +41,7 @@ if [ "$VPBASE" == "" ]; then
 fi
 
 if [ $# -eq 0 ]; then
-  for FILE in `ls testcase-[01234589]*.cfg`
+  for FILE in `ls testcase-[012345689]*.cfg`
   do
     #echo "`basename $FILE` -- `grep CASENAME $FILE`"
     grep CASENAME $FILE | sed s'!CASENAME="!!g' | sed 's!"$!!g'
@@ -229,8 +230,10 @@ if [ "$GENERIC_PLAYOUT_TYPE" != "" ]; then
 	if [ "$GENERIC_PLAYOUT_TYPE" != "NONE" ]; then
 		if [ "$GENERIC_PLAYOUT_TYPE" != "IP_TS" ]; then
 			if [ "$GENERIC_PLAYOUT_TYPE" != "SDI" ]; then
-				echo "test case invalid GENERIC_PLAYOUT_TYPE definition"
-				exit 1
+				if [ "$GENERIC_PLAYOUT_TYPE" != "SRT_TS" ]; then
+					echo "test case invalid GENERIC_PLAYOUT_TYPE definition"
+					exit 1
+				fi
 			fi
 		fi
 	fi
@@ -245,6 +248,15 @@ if [ "$GENERIC_PLAYOUT_TYPE" == "" ]; then
 else
 	if [ "$GENERIC_PLAYOUT_TYPE" == "IP_TS" ]; then
 		echo "Starting playout of IP_TS on port $OUTPUT_PORT"
+		CMD="screen -S playport${OUTPUT_PORT} -d -m ./$GENERIC_PLAYOUT_APP $URL_OUTPUT \
+			--screen-port $OUTPUT_PORT \
+			--output-url $URL_DST \
+			$GENERIC_ARGS"
+		echo $CMD
+		$CMD
+	fi
+	if [ "$GENERIC_PLAYOUT_TYPE" == "SRT_TS" ]; then
+		echo "Starting playout of SRT_TS on port $OUTPUT_PORT"
 		CMD="screen -S playport${OUTPUT_PORT} -d -m ./$GENERIC_PLAYOUT_APP $URL_OUTPUT \
 			--screen-port $OUTPUT_PORT \
 			--output-url $URL_DST \
