@@ -32,6 +32,7 @@ usage()
   echo "    ./deploy.sh --port 1 --cfg-file testcase-034.cfg"
   echo "    ./deploy.sh --port 1 --cfg-file testcase-900.cfg --nic-output eno2"
   echo "    ./deploy.sh --port 9 --cfg-file testcase-601.cfg --url-output srt://vtflex.duckdns.org:9650"
+  echo "    ./deploy.sh --port 9 --cfg-file testcase-650.cfg --url-output rtmp://myserver.com:1935/url/streamid"
   echo "    ./deploy.sh --port 1 --stop"
   echo
 }
@@ -231,8 +232,10 @@ if [ "$GENERIC_PLAYOUT_TYPE" != "" ]; then
 		if [ "$GENERIC_PLAYOUT_TYPE" != "IP_TS" ]; then
 			if [ "$GENERIC_PLAYOUT_TYPE" != "SDI" ]; then
 				if [ "$GENERIC_PLAYOUT_TYPE" != "SRT_TS" ]; then
-					echo "test case invalid GENERIC_PLAYOUT_TYPE definition"
-					exit 1
+					if [ "$GENERIC_PLAYOUT_TYPE" != "RTMP_TS" ]; then
+						echo "test case invalid GENERIC_PLAYOUT_TYPE definition"
+						exit 1
+					fi
 				fi
 			fi
 		fi
@@ -257,6 +260,15 @@ else
 	fi
 	if [ "$GENERIC_PLAYOUT_TYPE" == "SRT_TS" ]; then
 		echo "Starting playout of SRT_TS on port $OUTPUT_PORT"
+		CMD="screen -S playport${OUTPUT_PORT} -d -m ./$GENERIC_PLAYOUT_APP $URL_OUTPUT \
+			--screen-port $OUTPUT_PORT \
+			--output-url $URL_DST \
+			$GENERIC_ARGS"
+		echo $CMD
+		$CMD
+	fi
+	if [ "$GENERIC_PLAYOUT_TYPE" == "RTMP_TS" ]; then
+		echo "Starting playout of RTMP_TS on port $OUTPUT_PORT"
 		CMD="screen -S playport${OUTPUT_PORT} -d -m ./$GENERIC_PLAYOUT_APP $URL_OUTPUT \
 			--screen-port $OUTPUT_PORT \
 			--output-url $URL_DST \
