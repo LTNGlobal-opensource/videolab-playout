@@ -19,6 +19,7 @@ USAGETXT=$(cat <<-END
      --burnwriter             -- Enable burnwriter [def: disabled]\n
      --time                   -- Enable timestamp in frame [def: disabled]\n
      --enableallaudio         -- Enable decoding of all audio channels\n
+     --enablescte35           -- Enable decoding/output of SCTE-35 messages\n
      --disabledownmix         -- By default we downmix 5.1. This flag disables downmixing.\n
      --loopdelay     0.1      -- Number of seconds to wait after playing media, before repeating.
 END
@@ -44,6 +45,9 @@ do
 		;;
         --enableallaudio)
 		export LTN_ENABLE_AUDIO_ALL=1
+		;;
+        --enablescte35)
+		export LTN_ENABLE_SCTE35=1
 		;;
         --program-number)
                 shift
