@@ -119,6 +119,8 @@ playout_stop()
 	fi
 }
 
+echo "`date`: $USER : $0 $@" >>$VPBASE/scripts/history.log
+
 while (($#)); do
         case $1 in
 	--status)
