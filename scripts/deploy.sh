@@ -254,7 +254,7 @@ else
 		CMD="screen -S playport${OUTPUT_PORT} -d -m ./$GENERIC_PLAYOUT_APP $URL_OUTPUT \
 			--screen-port $OUTPUT_PORT \
 			--output-url $URL_DST \
-			$GENERIC_ARGS"
+			$GENERIC_ARGS --cfg-file $CFG_FILE"
 		echo $CMD
 		$CMD
 	fi
@@ -263,7 +263,7 @@ else
 		CMD="screen -S playport${OUTPUT_PORT} -d -m ./$GENERIC_PLAYOUT_APP $URL_OUTPUT \
 			--screen-port $OUTPUT_PORT \
 			--output-url $URL_DST \
-			$GENERIC_ARGS"
+			$GENERIC_ARGS --cfg-file $CFG_FILE"
 		echo $CMD
 		$CMD
 	fi
@@ -272,7 +272,7 @@ else
 		CMD="screen -S playport${OUTPUT_PORT} -d -m ./$GENERIC_PLAYOUT_APP $URL_OUTPUT \
 			--screen-port $OUTPUT_PORT \
 			--output-url $URL_DST \
-			$GENERIC_ARGS"
+			$GENERIC_ARGS --cfg-file $CFG_FILE"
 		echo $CMD
 		$CMD
 	fi
@@ -286,7 +286,7 @@ else
 			--output-port $OUTPUT_PORT \
 			$ENABLE_TIME \
 			$ENABLE_BURNWRITER \
-			$GENERIC_ARGS"
+			$GENERIC_ARGS --cfg-file $CFG_FILE"
 		echo $CMD
 		eval $CMD
 	fi

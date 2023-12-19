@@ -16,6 +16,7 @@ USAGETXT=$(cat <<-END
      --input        file.ts -- Absolute filename\n
      --output-url   url     -- Eg rtmp://mydomain.somewhere.com:4001/url/key\n
      --screen-port  #       -- Eg 0..32\n
+     --cfg-file    file.cfg -- Not use by the script, but used by the wrpaper to track what test we're running\n
 END
 )
 
@@ -38,6 +39,9 @@ do
         --screen-port)
                 shift
                 SCREEN_PORT=$1
+		;;
+        --cfg-file)
+                shift
 		;;
         *)
                 echo $USAGETXT

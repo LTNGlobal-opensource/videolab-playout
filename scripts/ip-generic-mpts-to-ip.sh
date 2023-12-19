@@ -12,6 +12,7 @@ USAGETXT=$(cat <<-END
      --pcr-pid      0xnnnn  -- hex\n
      --output-url   url     -- Eg udp://127.1.1.1:4001?ifname=en4 [def: disabled]\n
      --screen-port  #       -- Eg 0..32\n
+     --cfg-file    file.cfg -- Not use by the script, but used by the wrpaper to track what test we're running\n
 END
 )
 
@@ -38,6 +39,9 @@ do
         --screen-port)
                 shift
                 SCREEN_PORT=$1
+		;;
+        --cfg-file)
+                shift
 		;;
         *)
                 echo $USAGETXT

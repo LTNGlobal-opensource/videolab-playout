@@ -23,6 +23,7 @@ USAGETXT=$(cat <<-END
      --enablescte35           -- Enable decoding/output of SCTE-35 messages\n
      --disabledownmix         -- By default we downmix 5.1. This flag disables downmixing.\n
      --loopdelay     0.1      -- Number of seconds to wait after playing media, before repeating.
+     --cfg-file      file.cfg -- Not use by the script, but used by the wrpaper to track what test we're running
 END
 )
 
@@ -88,6 +89,9 @@ do
 			echo "Illegal port number, should be 1..4"
 			exit 1
 		fi
+		;;
+        --cfg-file)
+                shift
 		;;
         *)
                 echo $USAGETXT

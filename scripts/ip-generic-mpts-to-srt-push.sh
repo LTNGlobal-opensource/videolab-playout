@@ -11,6 +11,7 @@ USAGETXT=$(cat <<-END
      --output-url   url     -- Eg srt://mydomain.somewhere.com:4001\n
      --stream-id    name    -- Eg video.tx/dev/demo2\n
      --screen-port  #       -- Eg 0..32\n
+     --cfg-file    file.cfg -- Not use by the script, but used by the wrpaper to track what test we're running\n
 END
 )
 
@@ -37,6 +38,9 @@ do
         --stream-id)
                 shift
                 STREAM_ID="-s $1"
+		;;
+        --cfg-test)
+                shift
 		;;
         *)
                 echo $USAGETXT
