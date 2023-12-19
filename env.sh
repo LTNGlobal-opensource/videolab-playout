@@ -1,5 +1,12 @@
 
-export VPBASE=~/playout
+# QA and future playout systems we'll locate
+# everything under /storage. However, take care
+# of existing boxes.
+export VPBASE=/storage/playout/playout
+if [ ! -d $VPBASE ]; then
+	export VPBASE=~/playout
+fi
+
 export PATH=$PATH:$VPBASE/bin
 export LD_LIBRARY_PATH=$VPBASE/bin
 
