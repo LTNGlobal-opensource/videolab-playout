@@ -37,8 +37,14 @@ usage()
     echo
 }
 
-if [ "$VPBASE" == "" ]; then
-    . ../env.sh
+. ../env.sh
+
+# Prevent accidental usage by wrong user
+if [ -n "$WANTED_USER" ] && [ "$WANTED_USER" != "$USER" ]; then
+    echo "Wrong user!"
+    echo "$0 should be executed by '$WANTED_USER', but was executed by '$USER'"
+    echo "Please retry as '$WANTED_USER'"
+    exit 1
 fi
 
 if [ $# -eq 0 ]; then
