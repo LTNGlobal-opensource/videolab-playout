@@ -124,9 +124,9 @@ echo "`date`: $USER : $0 $@" >>$VPBASE/scripts/history.log
 while (($#)); do
         case $1 in
     --status)
-        PLAYOUTS=`ps -ef | grep -i screen | grep -i playport[0-9] | sed 's!^.*playport!   -> playport!' | wc -l`
-        echo Current running playouts: $PLAYOUTS
-        ps -ef | grep -i screen | grep -i playport[0-9] | sed 's!^.*playport!   -> playport!'
+        NR_OF_PLAYOUTS=`ps -ef | grep -i screen | grep -i playport[0-9] | sed 's!^.*playport!   -> playport!' | wc -l`
+        echo Current running playouts: $NR_OF_PLAYOUTS
+        ps -ef | grep -i screen | grep -i playport[0-9] | sed 's!^.*playport!   -> playport!' | sort
         exit 1
         ;;
         --burnwriter)
