@@ -1,3 +1,4 @@
+#!/bin/bash
 
 # QA and future playout systems we'll locate
 # everything under /storage. However, take care
@@ -32,3 +33,6 @@ if [ "`ls -l $VPBASE/bin/tcpreplay | cut -c1-17`" != "-rwsr-sr-x 1 root" ]; then
 	fi
 fi
 
+# Prevent accidental usage by wrong user
+# Is ignored when unset/empty for backwards compatibility
+export WANTED_USER=
