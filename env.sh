@@ -10,6 +10,8 @@ fi
 export PATH=$PATH:$VPBASE/bin
 export LD_LIBRARY_PATH=$VPBASE/bin
 
+echo PATH is $PATH
+
 which screen >/dev/null
 if [ $? -ne 0 ]; then
 	echo "Screen not installed?"
