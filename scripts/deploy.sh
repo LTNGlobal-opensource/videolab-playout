@@ -42,7 +42,7 @@ if [ "$VPBASE" == "" ]; then
 fi
 
 if [ $# -eq 0 ]; then
-  for FILE in `ls testcase-[012345689]*.cfg`
+  for FILE in `ls testcase-[0123456789]*.cfg`
   do
     #echo "`basename $FILE` -- `grep CASENAME $FILE`"
     grep CASENAME $FILE | sed s'!CASENAME="!!g' | sed 's!"$!!g'
