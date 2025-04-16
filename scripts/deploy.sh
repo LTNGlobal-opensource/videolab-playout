@@ -53,6 +53,8 @@ fi
 
 list_stream_usage()
 {
+OIFS="$IFS"
+IFS=$'\n'
 	unused=0
 	total=0
 	echo "Count Filename"
@@ -70,7 +72,7 @@ list_stream_usage()
 
 	echo "Streams: $total"
 	echo " Unused: $unused"
-	echo "Stream Library: `du -B1000000000 $VPBASE/../streams | cut -f1` GB"
+	echo "Stream Library: `du -B1000000000 $VPBASE/streams | cut -f1` GB"
 }
 
 playout_start()
